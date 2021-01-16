@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>dashboard</title>
+	<link href="css/dashboardStyle.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+<script src="https://kit.fontawesome.com/3e6075b089.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+	<div class="topBar">
+ 
+        <div class="search-contianer">
+            <input type="text" placeholder="Search my vault" name="search">
+        </div>
+        <div class="user">
+            <p>bradsenlai@gmail.com</p>
+        </div>
+    </div>
+	
+	 <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="sidebar">
+		<div imgSize>
+            <img src ="image/easyvault2.png" class ="imgSize">
+			<header>Easy Vault</header>
+		</div>
+        <ul>
+            <li><a href="#home"><i class="fas fa-qrcode"></i>Home</a></li>
+            <li><a href="#Password" class = "clickpass"><i class="fas fa-lock"></i>Password</a></li>
+				<ul class = "createDiv" id = "createDID">
+					<li><a href="#modal2" class = "createTemp"><i class="fas fa-plus"></i>Create</a></li>
+				</ul>
+        </ul>
+    </div>
+<section>
+	<div id="home" class="tab-content" >
+    <h2>Home</h2>
+    <p>This is the home page with whatever inside.</p>
+	  
+	</div>
+<div id="Password" class="tab-content" >
+	<div class="create">
+		<a href="#modal2"><i class="fas fa-plus"></i>Create</a>
+	</div>
+	
+	<div class="generatorBox">
+	  <div class="generatorHeader">
+		  Generate Secure Password
+	    <span class = "cross" ><i class = "fas fa-window-close"></i></span>
+		</div>
+		<input name="generateIn" type="text" class="form-control" id="form-ID" rel="gp" data-character-set="a-z,A-Z,0-9,#">
+	  <span class = "copy"><button type="button" class = "copybtn"><i class = "fas fa-copy"></i></button></span>
+		  <div class="generate firstrow">
+			  <p>Password length</p>
+			  <input type="number" value="8" rel = "dl">
+		  </div>
+	    <div class="generate secrow">
+			  <p>Exclude @</p> 
+			<input type="checkbox" rel = "ds">
+		</div>
+		  <input type="submit" value="Generate" class = "generate form">
+      </div>
+	
+	
+<div id="modal2" class="overlay">
+        <a class="cancel" href="#"></a>
+        <div class="editPassword">
+            <div class="modal">
+                <div class="content">
+                    <div class="editPasswordTop">
+                        Create Password
+                        <div class="back"><a class="cancel" href="#"><span style="font-size: 20px;">&#10006;</span></a></div>
+                    </div>
+                    <div class="editPasswordBot">
+                        <form id="myForm">
+                            <label for="url">URL</label>
+                            <input id="url" type="text"  name="url" placeholder="Key in url..." value="">
+                                <div class="float-child1">
+                                    <label for="username">Username</label>
+                                    <input id="username" type="text" name="createUsername" placeholder="Username" value="">
+                                </div>
+                                <div class="float-child2">   
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="createPassword" placeholder="Password">
+									<span class = "clicktogen"><button type="button"><i class = "fas fa-key"></i></button></span>	
+                                    <input type="checkbox" >&nbspShow Password
+                                </div>
+                            <label for="note">Notes</label>
+                            <input type="text" id="note" name="createNote" placeholder="Note">
+                        
+                            <div id="submitForm" class= "submit"><a class="cancel" href="#"><input type="button" value="Submit"></a></div>
+                            <div id="cancelForm"><a class="cancel" href="#"><input type="button" value="Cancel"></a></div>
+                            <input type="reset">
+							<input type="button" id= "deleteForm" class = "cancel" value = "delete">
+                        </form>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+	
+	<div id="modal1" class="overlay">
+        <a class="cancel" href="#"></a>
+        <div class="editPassword">
+            <div class="modal">
+                <div clas="content">
+                    <div class="editPasswordTop">
+                        Edit Password
+                        <div class='back'><a class="cancel" href='#'><span style='font-size: 20px;'>&#10006;</span></a></div>
+                    </div>
+                    <div class="editPasswordBot">
+                        
+                        <form id = "editForm">
+                            
+                            <label for="url">URL</label>
+                            <input type="text" id="editUrl" name="url" placeholder="Key in url...">
+                                <div class="float-child1">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="editUsername" name="username" placeholder="Username">
+                                </div>
+                                <div class="float-child2">   
+                                    <label for="password">Password</label>
+                                    <input type="password" id="editPassword" name="password" placeholder="Password">
+									<span class = "clicktogen"><button type="button"><i class = "fas fa-key"></i></button></span>
+                                    <input type="checkbox">&nbspShow Password
+                                </div>
+                            
+                            <label for="note">Notes</label>
+                            <input type="text" id="editNote" name="note" placeholder="Note">
+                            
+                            <div id="submitForm" class = "editCard"><a class="cancel" href="#"><input type="button" value="Submit"></a></div>
+                            <div id="cancelForm"><a class="cancel" href="#"><input type="button" value="Cancel"></a></div>
+							<input type="reset">
+                            
+                        </form>
+                        
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<div id = "passwdStore" class="passwdStorage">
+		
+    </div>
+</div>
+</section>
+<script src="scripts/dashboard.js"></script>
+
+</body>
+</html>
