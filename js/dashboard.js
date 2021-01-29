@@ -94,6 +94,10 @@ $(document).ready(function () {
 		
 	});
 	
+	$('.clicktogen-settings').click(function(){
+		$(".generatorBox").show();
+	});
+	
 	$(".generate.form").click(function(){
 		var field = $(this).closest('div').find('input[rel="gp"]');
 		var datasize = $(this).closest('div').find('input[rel="dl"]');
@@ -132,7 +136,20 @@ $(document).ready(function () {
 		}
 
   });
+	
+	//convert password between text and password for master password new passwor input
+	$("#checkShow3").on("click", function(){
 
+		var y = document.getElementById("new-password");
+		if (y.type === "password") {
+		  y.type = "text";
+		} else {
+		  y.type = "password";
+		}
+
+  });
+	
+	
   //clears create form on pressing cancel
   $("#cancel2").on("click", function(){
 	document.getElementById("createForm").reset();
@@ -147,9 +164,54 @@ $(document).ready(function () {
 		editPassword();
 	});
 	
+	//setting master password cancel
 
+	$('.change-master-password').click(function(){
+		$(".masterlogin-password.two").show();
+	});
+	
+	$('.setting-form.cancel').click(function(){
+		$(".masterlogin-password.two").hide();
+		$('input[type=password]').val('');
+	});
+	
+	
+	$('.setting-form.delete').click(function(){
+		$(".confirm-delete").show();
+	});
+	
+	$('.cancel-delete').click(function(){
+		$(".confirm-delete").hide();
+	});
+
+	//Password Validation
+	$("#new-password").passwordValidation({"confirmField": "#confirm-password"}, function(element, valid, match, failedCases) {
+	  $(".pswd_info").html("<pre>" + failedCases.join("\n") + "</pre>");
+	   if(valid) $(element).css("border","2px solid green");
+	   if(!valid) $(element).css("border","2px solid red");
+	   if(valid && match) $("#confirm-password").css("border","2px solid green");
+	   if(!valid || !match) $("#confirm-password").css("border","2px solid red");
+	});
+	
+	//Password Strength meter
+	$('#new-password').passtrength({
+		minChars: 8,
+		passwordToggle : false
+	});
+	
+	$('#createPassword').passtrength({
+		minChars: 8,
+		passwordToggle: false
+	});
+	
+	$('#editPassword').passtrength({
+		minChars: 8,
+		passwordToggle: false
+	});
+	
 });
 
+	
 
 //sets the values for input fileds on clicking edit
 function setValues() 

@@ -3,6 +3,7 @@
 <head>
 <title>dashboard</title>
 	<link href="css/dashboardStyle.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/passtrength.css"/>
     <script src="js/jquery.min-3.3.1.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/fontawesome.js" crossorigin="anonymous"></script>
@@ -34,36 +35,40 @@
 				<ul class = "createDiv" id = "createDID">
 					<li><a href="#modal2" class = "createTemp"><i class="fas fa-plus"></i>Create</a></li>
 				</ul>
+			<li><a href="#Setting" class = "click-setting"><i class="fas fa-cogs"></i>Settings</a></li>
+			<li><a href="#" class = "LogOut"><i class="fas fa-sign-out-alt"></i>Log Out</a></li>
         </ul>
     </div>
-
-<section>
-	<div id="home" class="tab-content" >
-    <h2>Home</h2>
-    <p>This is the home page with whatever inside.</p>
-	</div>
-<div id="Password" class="tab-content" >
-	<div class="create">
-		<a href="#modal2"><i class="fas fa-plus"></i>Create</a>
-    </div>
-    
-    <div class="generatorBox">
+	
+	<div class="generatorBox">
         <div class="generatorHeader">
             Generate Secure Password
-          <span class = "cross" ><i class = "fas fa-window-close"></i></span>
+          <span ><button class = "cross" type = "button"> <i class = "fas fa-window-close"></i></button></span>
           </div>
           <input name="generateIn" type="text" class="form-control" id="form-ID" rel="gp" data-character-set="a-z,A-Z,0-9,#">
         <span class = "copy"><button type="button" class = "copybtn"><i class = "fas fa-copy"></i></button></span>
             <div class="generate firstrow">
                 <p>Password length</p>
-                <input type="number" value="8" rel = "dl">
+                <input type="number" value="10" rel = "dl"> 
             </div>
           <div class="generate secrow">
-                <p>Exclude @</p> 
+                <p>Exclude "@"</p> 
               <input type="checkbox" rel = "ds">
           </div>
             <input type="submit" value="Generate" class = "generate form">
         </div>
+
+<section>
+	<div id="home" class="tab-content" >
+    <h2>Home</h2>
+    <p>This is the home page with whatever inside.</p>
+		
+	
+	</div>
+<div id="Password" class="tab-content" >
+	<div class="create">
+		<a href="#modal2"><i class="fas fa-plus"></i>Create</a>
+    </div>
 
 	<div id="modal2" class="overlay">
         <a class="cancel" href="#"></a>
@@ -155,9 +160,96 @@
 		
     </div>
 </div>
+
+<div id="Setting" class="tab-content" >
+	<div class="setting-modal" id = "setting-modal-id" role = "dialog">
+	  <div class="setting-box">
+		<form>
+		<div class="setting-header">
+			Settings
+		</div>
+		<div class="setting-content">
+		  <div class="masterlogin-box">
+			<div class="masterlogin-header">
+				<p>Master Login Credentials</p>
+			</div>
+			<div class="masterlogin-email">
+			  <p>Email: </p>
+				<input type="email">
+			</div>
+			<div class="masterlogin-password">
+			  <div class="masterlogin-password one">
+				<p>Master Password: </p>
+				  <span class = "change-master-password"><button type = "button">Change Master Password </button></span>
+				</div>
+				<div class="masterlogin-password two">
+					<table>
+						<tr>
+							<td class ="tableL">
+								<p>Old Password:</p>
+							</td>
+							<td class = "tableR">
+								<input type="password">
+							</td>
+						</tr>
+						<tr>
+							<td class = "tableL">
+								<p>New Password:</p>
+							</td>
+							<td class = "tableR">
+								<input type="password" id = "new-password">
+								<span class = "clicktogen-settings"><button type="button"><i class = "fas fa-key"></i></button></span>
+							  <input type="checkbox" id="checkShow3">&nbspShow Password
+						  </td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><div class = "pswd_info"></div></td>
+						</tr>
+					  <tr>
+							<td class = "tableL">
+								<p>Confirm Password:</p>
+							</td>
+							<td class = "tableR">
+								<input type="password" id = "confirm-password">
+							</td>
+						</tr>
+					</table>
+					<span class = "save-master-password"><button type = "button">Save Master Password</button></span>
+				</div>
+            </div>
+          </div>
+        </div>
+		<div class="setting-footer">
+			<span class = "setting-form delete"><button type = "button">Delete Account</button></span>
+		  	<span class = "setting-form update"><button type = "button">Update</button></span>
+			<span class = "setting-form cancel"><button type = "button">Cancel</button></span>
+		</div>
+		</form>
+      </div>
+    </div>	
+	
+	<div class="confirm-delete">
+			<div class = "confirm-delete-box">
+				<div class="confirm-delete-header">
+					<p>Delete Account?</p>
+					<span class = "cancel-delete"><button type = "button"><i class = "fas fa-window-close"></i></button></span>
+				</div>
+			  <div class="confirm-delete-body">
+					<p>Are you sure you want to delete the account?</p>
+				  	<p>All saved data will be lost forever!</p>
+				</div>
+			  <div class="confirm-delete-footer">
+				<span><button type = "button">OK</button></span>
+			  </div>
+			</div>
+    </div>
+</div>
+
 </section>
 <script src="js/dashboard.js"></script>
 <script src="js/randString.js"></script>
-
+<script type="text/javascript" src="js/jquery.passtrength.min.js"></script>
+<script src="js/jquery.password-validation.js"></script>
 </body>
 </html>

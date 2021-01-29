@@ -40,6 +40,14 @@ function isEmptyOrSpaces(str){
     return str === null || str.match(/^ *$/) !== null;
 }
 
+function pswdstr(){
+	$(document).ready(function(){
+		$('#myPassword').strength_meter();
+	});
+}
+
+
+
 //retrieves values from user and pass fields, connects to backend and inserts new user.
 function registerUser() {
     $(document).ready(function() 
@@ -136,6 +144,7 @@ function pageLoad()
 {
  document.getElementById("sign-up").addEventListener("click",registerUser());
  document.getElementById("login-btn").addEventListener("click",login());
+ pswdstr();
 
  chrome.runtime.sendMessage({type: 2}, function(response) 
  {
