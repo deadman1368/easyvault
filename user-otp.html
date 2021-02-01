@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+<link href="/css/loginStyle.css" rel="stylesheet" type="text/css">
+<link href="/css/otp.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div class="container">
+       <div class="login-box">
+            <div class="image"><img src="img/128.png" width="100" height="100" alt=""/></div>
+                <div class="title">Code Verification</div>
+
+            <div class="msg">
+                <span>We've sent a verification code to your email!</span>
+            </div>
+            <div class="input">
+                <input type="text" id="otp" placeholder="Enter Verification code">
+            </div>
+            <div class="btn login-btn">
+                <span id="login-btn">Submit</span>
+            </div>
+            
+            <a href= "user-otp.html" class = "otp">Resend OTP</a>
+            
+            <div class="change-box sign-change">
+                <div class="change-btn toLogin">
+                    <a href= "login.html" id="login">Login</a>
+                </div>
+            </div>
+
+       </div>
+		
+		
+	</div>	
+    
+
+    <script src="js/jquery.min-3.3.1.js"></script>
+    <script src="js/jquery.min-3.5.1.js"></script>
+    <script src="js/LoginPage.js"></script>
+	<script src="js/password_strength_lightweight.js"></script>
+</body>
+</html>
