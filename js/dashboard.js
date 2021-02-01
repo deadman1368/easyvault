@@ -164,18 +164,26 @@ $(document).ready(function () {
 		editPassword();
 	});
 	
-	//setting master password cancel
-
+	//setting email
+	$('.change-email').click(function(){
+		$(".masterlogin-email.two").show();
+	});
+	$('.email-cancel').click(function(){
+		$(".masterlogin-email.two").hide();
+		$('input[type=email]').val('');
+	});
+	
+	//setting master password 
 	$('.change-master-password').click(function(){
 		$(".masterlogin-password.two").show();
 	});
 	
-	$('.setting-form.cancel').click(function(){
+	$('.cancel-master-password').click(function(){
 		$(".masterlogin-password.two").hide();
 		$('input[type=password]').val('');
 	});
 	
-	
+	//confirm to delete account modal
 	$('.setting-form.delete').click(function(){
 		$(".confirm-delete").show();
 	});
@@ -183,7 +191,29 @@ $(document).ready(function () {
 	$('.cancel-delete').click(function(){
 		$(".confirm-delete").hide();
 	});
+	
+	//confirm to save changes modal at settings
+	$('.save-master-password').click(function(){
+		$(".confirm-changes").show();
+	});
+	
+	$('.save-email').click(function(){
+		$(".confirm-changes").show();
+	});
+	
+	$('.cancel-changes').click(function(){
+		$(".confirm-changes").hide();
+	});
 
+	//modal for confirming to delete password card at password page
+	$('#deleteForm1').click(function(){
+		$(".password-confirm-changes").show();
+	});
+	
+	$('.password-cancel-changes').click(function(){
+		$(".password-confirm-changes").hide();
+	});
+	
 	//Password Validation
 	$("#new-password").passwordValidation({"confirmField": "#confirm-password"}, function(element, valid, match, failedCases) {
 	  $(".pswd_info").html("<pre>" + failedCases.join("\n") + "</pre>");
