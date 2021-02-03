@@ -35,10 +35,14 @@
     
     })(window, document);
 
-// validation for null values in ajax calls    
-function isEmptyOrSpaces(str){
-    return str === null || str.match(/^ *$/) !== null;
+
+function pswdstr(){
+	$(document).ready(function(){
+		$('#myPassword').strength_meter();
+	});
 }
+
+
 
 //retrieves values from user and pass fields, connects to backend and inserts new user.
 function registerUser() {
@@ -50,7 +54,7 @@ function registerUser() {
             var username = document.getElementById("sign-user").value;
             var pass = document.getElementById("sign-password").value;
 
-            if(!isEmptyOrSpaces(username) && !isEmptyOrSpaces(pass))
+            if(username && pass)
             {
                 $.ajax
                 ({
@@ -95,7 +99,7 @@ function login() {
             var username = document.getElementById("login-user").value;
             var pass = document.getElementById("login-password").value;
 
-            if(!isEmptyOrSpaces(username) && !isEmptyOrSpaces(pass))
+            if(username && pass)
             {
                 $.ajax
                 ({
@@ -109,10 +113,9 @@ function login() {
                     }
                     else
                     {
-                        console.log(result);
-                        chrome.runtime.sendMessage({type: 1 ,token: result}, function(response){});
-                        alert("login successful, redirecting...");
-                      window.location.href = "dashboard.html" + "?username=" + username +"&tokenstring=" + result;
+                        
+                        //chrome.runtime.sendMessage({type: 1 ,token: result}, function(response){});
+                        window.location.href = "user-otp.html" +"?username=" + username + "&token=" + result;
                     }
                 },
                 error:function(error) 
@@ -136,12 +139,13 @@ function pageLoad()
 {
  document.getElementById("sign-up").addEventListener("click",registerUser());
  document.getElementById("login-btn").addEventListener("click",login());
+ //pswdstr();
 
  chrome.runtime.sendMessage({type: 2}, function(response) 
  {
     var existingToken = response.verify;
 
-    if(!isEmptyOrSpaces(existingToken))
+    if(existingToken)
     {
     const Url ='http://3.134.99.115/api/login.php';
     $.ajax

@@ -54,8 +54,7 @@ function populateSubMenu(item, index) {
         case 4:
           request.data.forEach(populateSubMenu);
           passwords = request.data;
-          return true;
-        //break;
+          break;
 
         case 5:
           break;
