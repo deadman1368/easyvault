@@ -114,8 +114,9 @@ function login() {
                     else
                     {
                         
-                        //chrome.runtime.sendMessage({type: 1 ,token: result}, function(response){});
+                       // chrome.runtime.sendMessage({type: 1 ,token: result}, function(response){});
                         window.location.href = "user-otp.html" +"?username=" + username + "&token=" + result;
+                        //window.location.href = "dashboard.html" +"?username=" + username + "&token=" + result;
                     }
                 },
                 error:function(error) 

@@ -321,23 +321,31 @@ function pageLoad() {
 		   type: "GET",
 		   success: function(result)
 		   {
-			   if(result != 0)
+			   if(result == 0)
 			   {
-					var temp = result.split(";");
-					for(i=0;i < temp.length;i++)
-					{
-						if(!isEmptyOrSpaces(temp[i]))
-						{
-							var passwordList = temp[i].split(",");
-							var temp2 = {id: passwordList[0], user_id: passwordList[1] , username: passwordList[2] ,password: passwordList[3], url: passwordList[4], misc: passwordList[5]  };
-							passwords.push(temp2);
-						}
-					}
+					alert("error, unable to communicate with backend");
+			   }
+			   else if(result == 2)
+			   {
+				   //do nothing
 			   }
 			   else
 			   {
-				   alert("error, unable to retrieve passwords from backend");
+
+				var temp = result.split(";");
+				for(i=0;i < temp.length;i++)
+				{
+					if(temp[i])
+					{
+						var passwordList = temp[i].split(",");
+						var temp2 = {id: passwordList[0], user_id: passwordList[1] , username: passwordList[2] ,password: passwordList[3], url: passwordList[4], misc: passwordList[5]  };
+						passwords.push(temp2);
+
+					}
+				}
+
 			   }
+
 			   chrome.runtime.sendMessage({type: 4, data:passwords}, function(response){});
 			   populatePasswords();
 		   },
@@ -355,6 +363,13 @@ function pageLoad() {
    
    });
    document.getElementById("LoggedUser").innerHTML = "User: "+current_user;
+	//set delete user button function
+	document.getElementById("deleteuserBtn").onclick = deleteUser;
+	//set update user button function
+	document.getElementById("updateEmailbtn").onclick = editUsername;
+	//set the logout button
+	document.getElementById("logoutBtn").onclick = logout;
+
 }
 
 //uses values from input fields in modal2, connects to backend and inserts into passwords db.
@@ -499,6 +514,140 @@ function deletePassword()
 		}
 	});
 	
+}
+
+//function to change the email for the user.
+function deleteUser() 
+{
+
+	chrome.runtime.sendMessage({type: 2}, function(response) 
+	{
+		var existingToken = response.verify;
+
+		if(existingToken)
+    	{
+   	 		const Url ='http://3.134.99.115/api/deleteuser.php';
+    		$.ajax
+    		({
+        		url: Url + "?token=" + existingToken,
+        		type: "GET",
+        		success: function(result)
+       			{
+            	if(result == 1)
+            	{
+						alert("User has been deleted");
+						chrome.runtime.sendMessage({type: 3}, function(response){});
+						window.location.href = "login.html";
+           		}
+           		else
+            	{
+					console.log("error deleting user, unable to communicate with backend");
+					window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+            	}
+        		},
+        		error:function(error) 
+       			{
+        			console.log(`Error ${error}`)
+        		}
+    		});
+		}
+		else
+		{
+			alert("Session expired, redirecting to login page...");
+			window.location.href = "login.html";
+		}
+	});
+	
+}
+
+//function to change the username(email) of the user
+function editUsername() 
+{
+	var new_username = document.getElementById("inputemail").value;
+
+	chrome.runtime.sendMessage({type: 2}, function(response) 
+	{
+		var existingToken = response.verify;
+
+		if(existingToken && new_username)
+    	{
+   	 		const Url ='http://3.134.99.115/api/editemail.php';
+    		$.ajax
+    		({
+        		url: Url + "?newusername=" + new_username + "&token=" + existingToken,
+        		type: "GET",
+        		success: function(result)
+       			{
+            		if(result == 1)
+            		{
+						alert("email has been changed, please relogin with the new email");
+						chrome.runtime.sendMessage({type: 3}, function(response){});
+						window.location.href = "login.html";
+           			}
+           			else
+            		{
+						console.log("error changing email, unable to communicate with backend");
+						window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+					}
+				
+        		},
+        		error:function(error) 
+       			{
+        			console.log(`Error ${error}`)
+        		}
+    		});
+		}
+		else
+		{
+			alert("Session expired, redirecting to login page...");
+			window.location.href = "login.html";
+		}
+	});
+	
+}
+
+
+//function to log out the user, and deletes the relevant session token from the backend
+function logout()
+{
+	chrome.runtime.sendMessage({type: 2}, function(response) 
+	{
+		var existingToken = response.verify;
+
+		if(existingToken)
+    	{
+   	 		const Url ='http://3.134.99.115/api/logout.php';
+    		$.ajax
+    		({
+        		url: Url + "?username=" + current_user,
+        		type: "GET",
+        		success: function(result)
+       			{
+            		if(result == 1)
+            		{
+						alert("Logged out");
+						chrome.runtime.sendMessage({type: 3}, function(response){});
+						window.location.href = "login.html";
+           			}
+           			else
+            		{
+						console.log("Something went wrong, unable to communicate with backend");
+						window.location.href = "login.html";;
+					}
+				
+        		},
+        		error:function(error) 
+       			{
+        			console.log(`Error ${error}`)
+        		}
+    		});
+		}
+		else
+		{
+			alert("Session expired, redirecting to login page...");
+			window.location.href = "login.html";
+		}
+	});
 }
 
 window.onload=pageLoad();
