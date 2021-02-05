@@ -36,7 +36,7 @@
 					<li><a href="#modal2" class = "createTemp"><i class="fas fa-plus"></i>Create</a></li>
 				</ul>
 			<li><a href="#Setting" class = "click-setting"><i class="fas fa-cogs"></i>Settings</a></li>
-			<li><a href="#" class = "LogOut"><i class="fas fa-sign-out-alt"></i>Log Out</a></li>
+			<li><a href="#" class = "LogOut"><i id="logoutBtn" class="fas fa-sign-out-alt"></i>Log Out</a></li>
         </ul>
     </div>
 	
@@ -175,7 +175,7 @@
 			</div>
 			<div class="masterlogin-email">
 			  <p>Email: </p>
-				<input type="email">
+				<input type="email" id="inputemail">
 			</div>
 			<div class="masterlogin-password">
 			  <div class="masterlogin-password one">
@@ -222,7 +222,7 @@
         </div>
 		<div class="setting-footer">
 			<span class = "setting-form delete"><button type = "button">Delete Account</button></span>
-		  	<span class = "setting-form update"><button type = "button">Update</button></span>
+		  	<span class = "setting-form update"><button id="updateEmailbtn" type = "button">Update</button></span>
 			<span class = "setting-form cancel"><button type = "button">Cancel</button></span>
 		</div>
 		</form>
@@ -240,7 +240,7 @@
 				  	<p>All saved data will be lost forever!</p>
 				</div>
 			  <div class="confirm-delete-footer">
-				<span><button type = "button">OK</button></span>
+				<span><button id="deleteuserBtn" type = "button">OK</button></span>
 			  </div>
 			</div>
     </div>
@@ -251,5 +251,6 @@
 <script src="js/randString.js"></script>
 <script type="text/javascript" src="js/jquery.passtrength.min.js"></script>
 <script src="js/jquery.password-validation.min.js"></script>
+<script src="js/jquery.password_strength_lightweight.js"></script>
 </body>
 </html>
