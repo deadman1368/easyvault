@@ -140,7 +140,7 @@ function pageLoad()
 {
  document.getElementById("sign-up").addEventListener("click",registerUser());
  document.getElementById("login-btn").addEventListener("click",login());
- //pswdstr();
+ pswdstr();
 
  chrome.runtime.sendMessage({type: 2}, function(response) 
  {
