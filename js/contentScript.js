@@ -72,8 +72,8 @@
       
       //Create store password pop up
       var storePwd = document.createElement('div');
-      storePwd.style.height= '500px';
-      storePwd.style.width = '270px';
+      storePwd.style.height= '50px';
+      storePwd.style.width = '170px';
       storePwd.style.padding = '0 0 5px 0';
       storePwd.style.marginLeft = '10px';
       storePwd.style.marginTop = '35px';
