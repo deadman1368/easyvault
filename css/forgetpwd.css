@@ -1,0 +1,59 @@
+.msg{
+    margin-top: 30px;
+    text-align: center;
+    color: white;
+}
+
+.resetPwd-msg{
+    margin-top: 100px;
+    text-align: center;
+    color: white;
+}
+
+
+.forgetPwd{
+    color: white;
+    
+    margin: auto;
+    display: block;
+    margin-top: 30px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.forgetPwd:hover{
+    text-decoration: underline;
+
+}
+
+#login{
+    text-decoration: none;
+    color: white;
+
+}
+
+.forget{
+    margin: auto;
+    display: relative;
+    text-decoration: none;
+    color: white;
+}
+
+
+.btn2 {
+    height: 50px;
+    width: 320px;
+    position: relative;
+    margin: -10px auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, .4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .4s;
+    margin-top: 30px;
+}
+
+
