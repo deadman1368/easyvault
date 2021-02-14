@@ -3,8 +3,8 @@
 <head>
 <title>dashboard</title>
 	<link href="css/dashboardStyle.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="css/passstrength.css"/>
-    <script src="js/jquery.min-3.3.1.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/passtrength.css"/>
+    <script src="js/jquery.min-3.5.1.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/fontawesome.js" crossorigin="anonymous"></script>
 </head>
@@ -16,6 +16,7 @@
         </div>
         <div class="user">
             <p id="LoggedUser">placeholder</p>
+			<p id="LastLoginTime">placeholder</p>
         </div>
     </div>
 	
@@ -36,7 +37,7 @@
 					<li><a href="#modal2" class = "createTemp"><i class="fas fa-plus"></i>Create</a></li>
 				</ul>
 			<li><a href="#Setting" class = "click-setting"><i class="fas fa-cogs"></i>Settings</a></li>
-			<li><a href="#" class = "LogOut"><i id="logoutBtn" class="fas fa-sign-out-alt"></i>Log Out</a></li>
+			<li><a href="#" class = "LogOut"><i id="logout-Btn" class="fas fa-sign-out-alt"></i>Log Out</a></li>
         </ul>
     </div>
 	
@@ -62,7 +63,7 @@
 	<div id="home" class="tab-content" >
     <h2>Home</h2>
     <p>This is the home page with whatever inside.</p>
-		
+	
 	
 	</div>
 <div id="Password" class="tab-content" >
@@ -146,7 +147,7 @@
                             <div id="cancelForm"><a class="cancel" href="#"><input type="button" id="cancel1" value="Cancel"></a></div>
 
 							<input type="reset" value="Clear all Fields">
-                            <input type="reset" id= "deleteForm1" value = "Delete Password">
+                            <input type="reset" id= "delete-password" value = "Delete Password">
 
                         </form>
                         
@@ -155,6 +156,18 @@
             </div>
         </div>
     </div>
+	
+	<div class = "password-confirm-changes">
+			<div class = "password-confirm-changes-box">
+			  <div class="password-confirm-changes-body">
+					<p>Are you sure you want to delete this password?</p>
+				  	<span class = "password-cancel-changes"><button type = "button"><i class = "fas fa-window-close"></i></button></span>
+				</div>
+			  <div class="password-confirm-changes-footer">
+				<span><button type = "button" id="password-delete-confirm">OK</button></span>
+			  </div>
+			</div>
+		</div>
 	
 	<div id = "passwdStore" class="passwdStorage">
 		
@@ -174,8 +187,35 @@
 				<p>Master Login Credentials</p>
 			</div>
 			<div class="masterlogin-email">
-			  <p>Email: </p>
-				<input type="email" id="inputemail">
+				<div class="masterlogin-email one">
+					<p>Email: </p>
+				<input type="email">
+				<span class = "change-email"><button type = "button">Change</button></span>
+				</div>
+				<div class = "masterlogin-email two">
+					<table>
+						<tr>
+							<td class = "tableL">
+								<p>New Email:</p>
+							</td>
+							<td class ="tableR">
+								<input type = "email">
+							</td>
+						</tr>
+						<tr>
+							<td class = "tableL">
+								<p>Confirm Email:</p>
+							</td>
+							<td class ="tableR">
+								<input type = "email">
+							</td>
+						</tr>
+					</table>
+					<span class = "save-email"><button type = "button" id="">Save Email</button></span>
+					<span class = "email-cancel"><button type = "button">Cancel</button></span>
+				</div>
+				<div class = "masterlogin-email footer">
+				</div>
 			</div>
 			<div class="masterlogin-password">
 			  <div class="masterlogin-password one">
@@ -189,7 +229,7 @@
 								<p>Old Password:</p>
 							</td>
 							<td class = "tableR">
-								<input type="password">
+								<input type="password" id="old-master-password">
 							</td>
 						</tr>
 						<tr>
@@ -197,7 +237,7 @@
 								<p>New Password:</p>
 							</td>
 							<td class = "tableR">
-								<input type="password" id = "new-password">
+								<input type="password" id = "new-master-password">
 								<span class = "clicktogen-settings"><button type="button"><i class = "fas fa-key"></i></button></span>
 							  <input type="checkbox" id="checkShow3">&nbspShow Password
 						  </td>
@@ -211,23 +251,22 @@
 								<p>Confirm Password:</p>
 							</td>
 							<td class = "tableR">
-								<input type="password" id = "confirm-password">
+								<input type="password" id = "confirm-master-password">
 							</td>
-						</tr>
+					  </tr>
 					</table>
 					<span class = "save-master-password"><button type = "button">Save Master Password</button></span>
+					<span class = "cancel-master-password"><button type = "button">Cancel</button></span>
 				</div>
             </div>
           </div>
         </div>
 		<div class="setting-footer">
 			<span class = "setting-form delete"><button type = "button">Delete Account</button></span>
-		  	<span class = "setting-form update"><button id="updateEmailbtn" type = "button">Update</button></span>
-			<span class = "setting-form cancel"><button type = "button">Cancel</button></span>
 		</div>
 		</form>
       </div>
-    </div>	
+    </div>
 	
 	<div class="confirm-delete">
 			<div class = "confirm-delete-box">
@@ -240,17 +279,54 @@
 				  	<p>All saved data will be lost forever!</p>
 				</div>
 			  <div class="confirm-delete-footer">
-				<span><button id="deleteuserBtn" type = "button">OK</button></span>
+				<span><button type = "button" id="deleteuser-Btn">OK</button></span>
 			  </div>
 			</div>
     </div>
+	
+	<div class="confirm-changes">
+			<div class = "confirm-changes-box">
+			  <div class="confirm-changes-body">
+					<p>Are you sure you want to make changes?</p>
+				  	<span class = "cancel-changes"><button type = "button"><i class = "fas fa-window-close"></i></button></span>
+				</div>
+			  <div class="confirm-changes-footer">
+				<span><button type = "button">OK</button></span>
+			  </div>
+			</div>
+    </div>
+</div>
+
+<div class="confirm-changes" id='change-email-window'>
+    <div class = "confirm-changes-box">
+      <div class="confirm-changes-body">
+            <p>Confirm the change to your email?</p>
+              <span class = "cancel-changes"><button type = "button"><i class = "fas fa-window-close"></i></button></span>
+        </div>
+      <div class="confirm-changes-footer">
+        <span><button type = "button" id="confirm-change-email">OK</button></span>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="confirm-changes" id='change-masterpassword-window'>
+    <div class = "confirm-changes-box">
+      <div class="confirm-changes-body">
+            <p>Confirm the change to your master password?</p>
+              <span class = "cancel-changes"><button type = "button"><i class = "fas fa-window-close"></i></button></span>
+        </div>
+      <div class="confirm-changes-footer">
+        <span><button type = "button" id="confirm-change-master-password">OK</button></span>
+      </div>
+    </div>
+</div>
 </div>
 
 </section>
 <script src="js/dashboard.js"></script>
 <script src="js/randString.js"></script>
 <script type="text/javascript" src="js/jquery.passtrength.min.js"></script>
-<script src="js/jquery.password-validation.min.js"></script>
-<script src="js/jquery.password_strength_lightweight.js"></script>
+<script src="js/jquery.password-validation.js"></script>
 </body>
 </html>
