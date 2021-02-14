@@ -159,18 +159,26 @@ $(document).ready(function () {
 		editPassword();
 	});
 	
-	//setting master password cancel
-
+	//setting email
+	$('.change-email').click(function(){
+		$(".masterlogin-email.two").show();
+	});
+	$('.email-cancel').click(function(){
+		$(".masterlogin-email.two").hide();
+		$('input[type=email]').val('');
+	});
+	
+	//setting master password 
 	$('.change-master-password').click(function(){
 		$(".masterlogin-password.two").show();
 	});
 	
-	$('.setting-form.cancel').click(function(){
+	$('.cancel-master-password').click(function(){
 		$(".masterlogin-password.two").hide();
 		$('input[type=password]').val('');
 	});
 	
-	
+	//confirm to delete account modal
 	$('.setting-form.delete').click(function(){
 		$(".confirm-delete").show();
 	});
@@ -178,6 +186,30 @@ $(document).ready(function () {
 	$('.cancel-delete').click(function(){
 		$(".confirm-delete").hide();
 	});
+	
+	//confirm to save changes modal at settings
+	$('.save-master-password').click(function(){
+		$("#change-masterpassword-window").show();
+	});
+	
+	$('.save-email').click(function(){
+		$("#change-email-window").show();
+	});
+	
+	$('.cancel-changes').click(function(){
+		$(".confirm-changes").hide();
+	});
+
+	//modal for confirming to delete password card at password page
+	
+	$('#delete-password').click(function(){
+		$(".password-confirm-changes").show();
+	});
+	
+	$('.password-cancel-changes').click(function(){
+		$(".password-confirm-changes").hide();
+	});
+	
 
 	//Password Validation
 	$("#new-password").passwordValidation({"confirmField": "#confirm-password"}, function(element, valid, match, failedCases) {
@@ -297,7 +329,7 @@ function populatePasswords() {
 			//function to prepopulate the input fields for each EditModel
 			document.getElementById("editModel_"+i).onclick = setValues;
 			//append the delete function to the button
-			document.getElementById("deleteForm1").onclick = deletePassword;
+			//document.getElementById("delete-confirm").onclick = deletePassword;
 			//clears the global variables on cancel click
 			document.getElementById("cancelForm").onclick = clear_id;
 
@@ -351,7 +383,7 @@ function pageLoad() {
 		   },
 		   error:function(error) 
 		   {
-		   console.log(`Error ${error}`)
+		   		alert(`Error ${error}`)
 		   }
 	   });
 	   }
@@ -362,13 +394,18 @@ function pageLoad() {
 	   }
    
    });
-   document.getElementById("LoggedUser").innerHTML = "User: "+current_user;
+   
+   	document.getElementById("LoggedUser").innerHTML = "User: "+current_user;
 	//set delete user button function
-	document.getElementById("deleteuserBtn").onclick = deleteUser;
-	//set update user button function
-	document.getElementById("updateEmailbtn").onclick = editUsername;
+	document.getElementById("deleteuser-Btn").onclick = deleteUser;
+	//set update email button function
+	document.getElementById("confirm-change-email").onclick = editUsername;
+	//set update master password button function
+	document.getElementById("confirm-change-master-password").onclick = editMasterPassword;
 	//set the logout button
-	document.getElementById("logoutBtn").onclick = logout;
+	document.getElementById("logout-Btn").onclick = logout;
+	
+	document.getElementById("password-delete-confirm").onclick = deletePassword;
 
 }
 
@@ -406,7 +443,7 @@ function addPassword()
         		},
         		error:function(error) 
        			{
-        			console.log(`Error ${error}`)
+        			alert(`Error ${error}`)
         		}
     		});
 		}
@@ -431,8 +468,7 @@ function editPassword()
 		var edit_sitepassword = document.getElementById("editPassword").value;
 		var edit_siteurl = document.getElementById("editUrl").value;
 		var edit_sitemisc = document.getElementById("editNote").value;
-		console.log(current_password_id);
-		console.log(current_user_id);
+
 
 		var appendurl =  "?id=" + edit_id + "&user_id=" + edit_userid + "&site_url="+ edit_siteurl  + "&site_username=" + edit_siteuser  + "&site_password=" + edit_sitepassword + "&misc=" + edit_sitemisc + "&token=" + existingToken;
 
@@ -459,7 +495,7 @@ function editPassword()
         		},
         		error:function(error) 
        			{
-        			console.log(`Error ${error}`)
+        			alert(`Error ${error}`)
         		}
     		});
 		}
@@ -475,45 +511,47 @@ function editPassword()
 //function to delete existing passwords for the user.
 function deletePassword() 
 {
-		var delete_id = current_password_id;
+	var delete_id = current_password_id;
 
-	chrome.runtime.sendMessage({type: 2}, function(response) 
-	{
-		var existingToken = response.verify;
-
-		if(existingToken)
-    	{
-   	 		const Url ='http://3.134.99.115/api/deletepassword.php';
-    		$.ajax
-    		({
-        		url: Url + '?id='+ delete_id + "&token=" + existingToken,
-        		type: "GET",
-        		success: function(result)
-       			{
-            	if(result == 1)
-            	{
-					alert("Password Deleted");
-					window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
-           		}
-           		else
-            	{
-					console.log("error deleting password, unable to communicate with backend");
-					window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
-            	}
-        		},
-        		error:function(error) 
-       			{
-        			console.log(`Error ${error}`)
-        		}
-    		});
-		}
-		else
+	//if(confirm("Confirm deletion of password?"))
+	//{
+		chrome.runtime.sendMessage({type: 2}, function(response) 
 		{
-			alert("Session expired, redirecting to login page...");
-			window.location.href = "login.html";
-		}
-	});
-	
+			var existingToken = response.verify;
+
+			if(existingToken)
+			{
+				const Url ='http://3.134.99.115/api/deletepassword.php';
+				$.ajax
+				({
+					url: Url + '?id='+ delete_id + "&token=" + existingToken,
+					type: "GET",
+					success: function(result)
+					{
+					if(result == 1)
+					{
+						alert("Password Deleted");
+						window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+					}
+					else
+					{
+						console.log("error deleting password, unable to communicate with backend");
+						window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+					}
+					},
+					error:function(error) 
+					{
+						alert(`Error ${error}`)
+					}
+				});
+			}
+			else
+			{
+				alert("Session expired, redirecting to login page...");
+				window.location.href = "login.html";
+			}
+		});
+	//}
 }
 
 //function to change the email for the user.
@@ -547,7 +585,7 @@ function deleteUser()
         		},
         		error:function(error) 
        			{
-        			console.log(`Error ${error}`)
+        			alert(`Error ${error}`)
         		}
     		});
 		}
@@ -586,14 +624,64 @@ function editUsername()
            			}
            			else
             		{
-						console.log("error changing email, unable to communicate with backend");
 						window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
 					}
 				
         		},
         		error:function(error) 
        			{
-        			console.log(`Error ${error}`)
+        			alert(`Error ${error}`)
+        		}
+    		});
+		}
+		else
+		{
+			alert("Session expired, redirecting to login page...");
+			window.location.href = "login.html";
+		}
+	});
+	
+}
+
+function editMasterPassword() 
+{
+	var placeholder = document.getElementById("new-master-password").value;
+	var placceholder2 = document.getElementById("confirm-master-password").value;
+	if(placeholder == placceholder2)
+	{
+		var new_master_password = document.getElementById("new-master-password").value;
+		var old_master_password = document.getElementById("old-master-password").value;
+	}
+
+	chrome.runtime.sendMessage({type: 2}, function(response) 
+	{
+		var existingToken = response.verify;
+
+		if(existingToken && new_master_password)
+    	{
+   	 		const Url ='http://3.134.99.115/api/editmasterpassword.php';
+    		$.ajax
+    		({
+        		url: Url + "?new_password=" + new_master_password + "&old_password=" + old_master_password + "&token=" + existingToken,
+        		type: "GET",
+        		success: function(result)
+       			{
+            		if(result == 1)
+            		{
+						alert("Master Password has been changed, please relogin with the new password");
+						chrome.runtime.sendMessage({type: 3}, function(response){});
+						window.location.href = "login.html";
+           			}
+           			else
+            		{
+						alert("something went wrong");
+						window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+					}
+				
+        		},
+        		error:function(error) 
+       			{
+        			alert(`Error ${error}`)
         		}
     		});
 		}
@@ -631,14 +719,14 @@ function logout()
            			}
            			else
             		{
-						console.log("Something went wrong, unable to communicate with backend");
+						alert("Something went wrong, unable to communicate with backend");
 						window.location.href = "login.html";;
 					}
 				
         		},
         		error:function(error) 
        			{
-        			console.log(`Error ${error}`)
+        			alert(`Error ${error}`)
         		}
     		});
 		}

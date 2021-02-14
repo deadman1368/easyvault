@@ -6,6 +6,7 @@ var sessiontoken = urlparms.get('token');
 
 function pageLoad()
 {
+    console.log(current_user);
     const Url ='http://3.134.99.115/api/generateotp.php';
 
         if(current_user)
@@ -24,7 +25,7 @@ function pageLoad()
 
             error:function(error) 
             {
-                console.log(`Error ${error}`)
+                alert(`Error ${error}`)
             }
             });
         }
@@ -62,7 +63,7 @@ function sendOTP()
                 },
                 error:function(error) 
                 {
-                    console.log(`Error ${error}`)
+                    alert(`Error ${error}`)
                 }
                 }); 
             }
@@ -74,6 +75,7 @@ function sendOTP()
 }
 
 document.getElementById("login-btn").addEventListener("click",sendOTP);
+document.getElementById("resend-otp").addEventListener("click",sendOTP);
 
 pageLoad();
 

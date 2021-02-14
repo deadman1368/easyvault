@@ -42,6 +42,10 @@ function pswdstr(){
 	});
 }
 
+//email validation for registration
+function is_email(email){      
+    var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailReg.test(email); } 
 
 
 //retrieves values from user and pass fields, connects to backend and inserts new user.
@@ -54,7 +58,7 @@ function registerUser() {
             var username = document.getElementById("sign-user").value;
             var pass = document.getElementById("sign-password").value;
 
-            if(username && pass)
+            if(is_email(username) && pass)
             {
                 $.ajax
                 ({
@@ -62,7 +66,6 @@ function registerUser() {
                 type: "GET",
                 success: function(result)
                 {
-                    console.log(result)
                     if(result == 1)
                     {
                     alert("Username already exists");
@@ -75,13 +78,13 @@ function registerUser() {
                 },
                 error:function(error) 
                 {
-                    console.log(`Error ${error}`)
+                    alert(`Error ${error}`)
                 }
             }) 
             }
             else
             {
-                alert("Complete the required fields");
+                alert("Username must be an email or password field is empty");
             }
         })
 
@@ -114,14 +117,14 @@ function login() {
                     else
                     {
                         
-                       // chrome.runtime.sendMessage({type: 1 ,token: result}, function(response){});
-                        window.location.href = "user-otp.html" +"?username=" + username + "&token=" + result;
-                        //window.location.href = "dashboard.html" +"?username=" + username + "&token=" + result;
+                        //chrome.runtime.sendMessage({type: 1 ,token: result}, function(response){});
+                       window.location.href = "user-otp.html" +"?username=" + username + "&token=" + result;
+                       // window.location.href = "dashboard.html" +"?username=" + username + "&token=" + result;
                     }
                 },
                 error:function(error) 
                 {
-                    console.log(`Error ${error}`)
+                    alert(`Error ${error}`)
                 }
                 }) 
             }
