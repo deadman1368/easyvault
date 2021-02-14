@@ -74,8 +74,42 @@ function sendOTP()
 
 }
 
+function regenerateOTP()
+{
+    const Url ='http://3.134.99.115/api/generateotp.php';
+
+        if(current_user)
+        {
+            $.ajax
+            ({
+            url: Url + '?username=' + current_user,
+            type: "GET",
+            success: function(result)
+            {
+                if(result == 0)
+                {
+                alert("something went wrong");
+                }
+                else
+                {
+                    alert("Verification code resent");
+                }
+            },
+
+            error:function(error) 
+            {
+                alert(`Error ${error}`)
+            }
+            });
+        }
+        else
+        {
+            alert("No user was logged in earlier");
+        }
+}
+
 document.getElementById("login-btn").addEventListener("click",sendOTP);
-document.getElementById("resend-otp").addEventListener("click",sendOTP);
+document.getElementById("resend-otp").addEventListener("click",regenerateOTP);
 
 pageLoad();
 
