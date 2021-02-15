@@ -89,7 +89,7 @@ html, body {
 
 .input {
     width: 400px;
-    height: 45px;
+    height: 30px;
     position: relative;
     margin: 40px auto;
     /* border-radius: 45px;
@@ -196,7 +196,7 @@ input {
 
 
 
-/* 注册框样式 */
+
 .sign-box {
     position: absolute;
     height: 100%;
@@ -239,7 +239,7 @@ input {
 
 
 
-/* Mac 按钮样式及特效 */
+
 .apple-btn {
     position: absolute;
     height: 15px;
