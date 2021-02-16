@@ -71,7 +71,7 @@ function registerUser() {
                     alert("Username already exists");
                     
                     }
-                    else
+                    else if(result == 0)
                     {
                         alert("User Registered!");
                     }
