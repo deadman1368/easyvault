@@ -6,7 +6,7 @@ var last_login = urlparms.get('last_login');
 
 function pageLoad()
 {
-    const Url ='https://3.20.221.122/api/generateotp.php';
+    const Url ='http://3.20.221.122/api/generateotp.php';
 
         if(current_user)
         {
@@ -38,7 +38,7 @@ function sendOTP()
 {
     var otp = document.getElementById("otp").value;
 
-        const Url ='https://3.20.221.122/api/verifyotp.php';
+        const Url ='http://3.20.221.122/api/verifyotp.php';
 
             if(otp)
             {
@@ -75,7 +75,7 @@ function sendOTP()
 
 function regenerateOTP()
 {
-    const Url ='https://3.20.221.122/api/generateotp.php';
+    const Url ='http://3.20.221.122/api/generateotp.php';
 
         if(current_user)
         {
