@@ -1,6 +1,6 @@
  {
   "name": "EasyVault Password Manager",
-  "version": "0.3",
+  "version": "0.8",
   "description": "EasyVault Password Manager Extension",
   "manifest_version": 2,
   "browser_action": {
@@ -21,7 +21,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["js/contentScript.js", "js/add.js", "js/autoFill.js"]
+      "js": ["js/contentScript.js"]
     }
   ],
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhSy5wmoPUD9z6Rj1KqnP6HjxsbUbEo0LvsGFjRFSncgvoKx/O/WDhxDuMdmc05FG1kbrJczUdZX+GqLrDZNPJab3Cjct/scsGTOCdsUqOptTMvcNir1D/MLOkvcObFtMA03cWj5/De/sV9YgJDiSifnnSBy5KAVAQeFS+NS5ai5Fexpzx0U/sYM0v5/Th0r78lg0ktATlKUUAo2ATB67PpNgvGw8R9I7Cm2yHOaDfHe93MDuHMx686ovYKfOZ+mMV/qQp/bddwKK1drt6+t6K0XtOOIkYx8qXjcQS6pNap4GzA1Ek6oO0fjxh7/NZqQ7TXhCf6q+/q8CcFw6GA1/NwIDAQAB",
