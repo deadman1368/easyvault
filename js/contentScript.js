@@ -24,7 +24,7 @@ localStorage.popUpValue = 0;
       
       //Query select all the input fields
       var usernameVar = document.querySelector("input[name='login'],input[name='email'],input[name='username'],input[name='loginKey'],input[name='identifier'],input[name='login_email'], input[name='login_id']");
-      var pwdVar =  document.querySelector("input[name='password'],input[name='pass'],input[type='password'],input[name='login_password']");
+      var pwdVar =  document.querySelector("input[name='password'],input[name='pass'],input[type='password'],input[name='login_password'],input[name='p_password']");
       var bgImage = "url('https://user-images.githubusercontent.com/38464644/107901895-de894580-6f7f-11eb-89a0-4d8adf3ea5cc.png')";
 
       //Username textfield
@@ -150,6 +150,11 @@ localStorage.popUpValue = 0;
           document.querySelector("input[name='login']").value = usernameTxt;
           
         };
+        if (document.querySelector("input[name='p_username']") != null){
+
+          document.querySelector("input[name='p_username']").value = usernameTxt;
+          
+        };
         if (document.querySelector("input[name='login_id']") != null){
 
           document.querySelector("input[name='login_id']").value = usernameTxt;
@@ -215,6 +220,8 @@ localStorage.popUpValue = 0;
     fnDefineEvents();
 
   })();
+ 
+  
  
   
 
