@@ -2,33 +2,58 @@
 'use strict';
 var passwords;
 var token;
+var time;
 
 chrome.runtime.onInstalled.addListener(function () {
+  chrome.contextMenus.create({
+    "id": "MainMenu2",
+    "title": "Easy Vault Usernames",
+    "contexts": ["editable"]
+  });
+  
   chrome.contextMenus.create({
     "id": "MainMenu",
     "title": "Easy Vault Passwords",
     "contexts": ["editable"]
   });
 
+
 });
 
 function onClickHandler(info, tab) 
 {
-chrome.tabs.sendMessage(tab.id, {type: 10,value: passwords[parseInt(info.menuItemId)]}, function(clickedEl) {});
-chrome.runtime.sendMessage({type: 10}, function(response){});
+  if(info.parentMenuItemId == "MainMenu")
+  {
+    chrome.tabs.sendMessage(tab.id, {type: 10,value: passwords[parseInt(info.menuItemId)]}, function(clickedEl) {});
+    chrome.runtime.sendMessage({type: 10}, function(response){});
+  }
+  else if(info.parentMenuItemId == "MainMenu2")
+  {
+    chrome.tabs.sendMessage(tab.id, {type: 11,value: passwords[parseInt(info.menuItemId)]}, function(clickedEl) {});
+    chrome.runtime.sendMessage({type: 11}, function(response){});
+  }
+
 };
+
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
-
 function populateSubMenu(item, index) {
-  console.log(index, item);
+ 
+  chrome.contextMenus.create({
+    "title": item.url,
+    "id": index+"_",
+    "parentId": "MainMenu2",
+    "contexts":["editable"]
+  });
+
   chrome.contextMenus.create({
     "title": item.url,
     "id": index+"",
     "parentId": "MainMenu",
     "contexts":["editable"]
   });
+
 }
 
 
@@ -38,13 +63,12 @@ function populateSubMenu(item, index) {
       {
         case 1:
           token = request.token;
-          return true;
-        //break;
+         // console.log(token);
+        break;
        
         case 2:
           sendResponse({verify: token});
-          return true;
-          //break
+          break;
 
         case 3:
           token = "";
@@ -57,6 +81,14 @@ function populateSubMenu(item, index) {
           break;
 
         case 5:
+          break;
+
+        case 6:
+          time = request.time;
+          break;
+
+        case 7:
+          sendResponse({verify: time});
           break;
       }
     }

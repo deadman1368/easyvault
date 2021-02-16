@@ -12,9 +12,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         clickedEl.value = request.value.password;
         return true;
     }
+
+    if(request.type == 11) {
+        clickedEl.value = request.value.username;
+        return true;
+    }
+
 });
 
-
+//extension javascript injection code
 var popUpValue = localStorage.popUpValue || 0;
 localStorage.popUpValue = 0;
 
@@ -220,9 +226,3 @@ localStorage.popUpValue = 0;
     fnDefineEvents();
 
   })();
- 
-  
- 
-  
-
-

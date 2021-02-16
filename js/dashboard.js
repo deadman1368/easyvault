@@ -343,10 +343,16 @@ function pageLoad() {
 	chrome.runtime.sendMessage({type: 2}, function(response) 
 	{
 	   var existingToken = response.verify;
-   
+		
+	   chrome.runtime.sendMessage({type: 7}, function(response) 
+	   {
+		   var time = response.verify;
+		   document.getElementById("LastLoginTime").innerHTML = "Your Last Login was: " + time;
+	   });
+	   
 	   if(existingToken)
 	   {
-	   const Url ='http://3.20.221.122/api/viewpassword.php';
+	   const Url ='https://3.20.221.122/api/viewpassword.php';
 	   $.ajax
 	   ({
 		   url: Url + '?token='+ existingToken,
@@ -396,6 +402,7 @@ function pageLoad() {
    });
    
    	document.getElementById("LoggedUser").innerHTML = "User: "+current_user;
+
 	//set delete user button function
 	document.getElementById("deleteuser-Btn").onclick = deleteUser;
 	//set update email button function
@@ -423,7 +430,7 @@ function addPassword()
 
 		if(existingToken)
     	{
-   	 		const Url ='http://3.20.221.122/api/addpassword.php';
+   	 		const Url ='https://3.20.221.122/api/addpassword.php';
     		$.ajax
     		({
         		url: Url + '?token='+ existingToken + "&site_username=" + new_username + "&site_password=" + new_password + "&site_url="+ new_url + "&misc="+ new_misc,
@@ -475,7 +482,7 @@ function editPassword()
 		
 		if(existingToken)
     	{
-   	 		const Url ='http://3.20.221.122/api/editpassword.php';
+   	 		const Url ='https://3.20.221.122/api/editpassword.php';
     		$.ajax
     		({
         		url: Url + appendurl,
@@ -521,7 +528,7 @@ function deletePassword()
 
 			if(existingToken)
 			{
-				const Url ='http://3.20.221.122/api/deletepassword.php';
+				const Url ='https://3.20.221.122/api/deletepassword.php';
 				$.ajax
 				({
 					url: Url + '?id='+ delete_id + "&token=" + existingToken,
@@ -564,7 +571,7 @@ function deleteUser()
 
 		if(existingToken)
     	{
-   	 		const Url ='http://3.20.221.122/api/deleteuser.php';
+   	 		const Url ='https://3.20.221.122/api/deleteuser.php';
     		$.ajax
     		({
         		url: Url + "?token=" + existingToken,
@@ -573,13 +580,14 @@ function deleteUser()
        			{
             	if(result == 1)
             	{
+						console.log(result);
 						alert("User has been deleted");
 						chrome.runtime.sendMessage({type: 3}, function(response){});
 						window.location.href = "login.html";
            		}
            		else
             	{
-					console.log("error deleting user, unable to communicate with backend");
+					alert("error deleting user, unable to communicate with backend");
 					window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
             	}
         		},
@@ -609,7 +617,7 @@ function editUsername()
 
 		if(existingToken && new_username)
     	{
-   	 		const Url ='http://3.20.221.122/api/editemail.php';
+   	 		const Url ='https://3.20.221.122/api/editemail.php';
     		$.ajax
     		({
         		url: Url + "?newusername=" + new_username + "&token=" + existingToken,
@@ -659,7 +667,7 @@ function editMasterPassword()
 
 		if(existingToken && new_master_password)
     	{
-   	 		const Url ='http://3.20.221.122/api/editmasterpassword.php';
+   	 		const Url ='https://3.20.221.122/api/editmasterpassword.php';
     		$.ajax
     		({
         		url: Url + "?new_password=" + new_master_password + "&old_password=" + old_master_password + "&token=" + existingToken,
@@ -704,7 +712,7 @@ function logout()
 
 		if(existingToken)
     	{
-   	 		const Url ='http://3.20.221.122/api/logout.php';
+   	 		const Url ='https://3.20.221.122/api/logout.php';
     		$.ajax
     		({
         		url: Url + "?username=" + current_user,

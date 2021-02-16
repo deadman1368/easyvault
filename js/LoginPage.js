@@ -52,13 +52,13 @@ function is_email(email){
 function registerUser() {
     $(document).ready(function() 
     {
-        const Url ='http://3.20.221.122/api/signup.php';
+        const Url ='https://3.20.221.122/api/signup.php';
         $('#sign-up').click(function()
         {
             var username = document.getElementById("sign-user").value;
             var pass = document.getElementById("sign-password").value;
 
-            if(username && pass)
+            if(is_email(username) && pass)
             {
                 $.ajax
                 ({
@@ -96,11 +96,13 @@ function registerUser() {
 function login() {
     $(document).ready(function() 
     {
-        const Url ='http://3.20.221.122/api/login.php';
+        const Url ='https://3.20.221.122/api/login.php';
         $('#login-btn').click(function()
         {
             var username = document.getElementById("login-user").value;
             var pass = document.getElementById("login-password").value;
+            var sessiontoken;
+            var last_login;
 
             if(username && pass)
             {
@@ -116,10 +118,12 @@ function login() {
                     }
                     else
                     {
-                        
-                        //chrome.runtime.sendMessage({type: 1 ,token: result}, function(response){});
-                       window.location.href = "user-otp.html" +"?username=" + username + "&token=" + result;
-                       // window.location.href = "dashboard.html" +"?username=" + username + "&token=" + result;
+                        sessiontoken = result.split(";")[0];
+                        last_login = result.split(";")[1];
+                       // chrome.runtime.sendMessage({type: 1 ,token: sessiontoken}, function(response){});
+                       // chrome.runtime.sendMessage({type: 6 ,time: last_login}, function(response){});
+                       window.location.href = "user-otp.html" +"?username=" + username + "&token=" + sessiontoken + "&last_login="+ last_login;
+                      //  window.location.href = "dashboard.html" +"?username=" + username + "&token=" + sessiontoken;
                     }
                 },
                 error:function(error) 
@@ -151,7 +155,7 @@ function pageLoad()
 
     if(existingToken)
     {
-    const Url ='http://3.20.221.122/api/login.php';
+    const Url ='https://3.20.221.122/api/login.php';
     $.ajax
     ({
         url: Url + '?token='+ existingToken,

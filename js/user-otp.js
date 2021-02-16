@@ -2,7 +2,7 @@ var querystring = window.location.search;
 var urlparms = new URLSearchParams(querystring);
 var current_user = urlparms.get('username');
 var sessiontoken = urlparms.get('token'); 
-
+var last_login = urlparms.get('last_login');
 
 function pageLoad()
 {
@@ -48,7 +48,6 @@ function sendOTP()
                 type: "GET",
                 success: function(result)
                 {
-                    console.log(result);
                     if(result == 0)
                     {
                     alert("Invalid or Expired OTP");
@@ -57,7 +56,8 @@ function sendOTP()
                     {
                         alert("logged in successfully, redirecting...")
                         chrome.runtime.sendMessage({type: 1 ,token: sessiontoken}, function(response){});
-                        window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+                        chrome.runtime.sendMessage({type: 6 ,time: last_login}, function(response){});
+                        window.location.href = "dashboard.html" + "?username=" + current_user +"&token=" + sessiontoken;
                     }
                 },
                 error:function(error) 
