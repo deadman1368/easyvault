@@ -135,7 +135,7 @@ $(document).ready(function () {
 	//convert password between text and password for master password new passwor input
 	$("#checkShow3").on("click", function(){
 
-		var y = document.getElementById("new-password");
+		var y = document.getElementById("new-master-password");
 		if (y.type === "password") {
 		  y.type = "text";
 		} else {
@@ -212,16 +212,16 @@ $(document).ready(function () {
 	
 
 	//Password Validation
-	$("#new-password").passwordValidation({"confirmField": "#confirm-password"}, function(element, valid, match, failedCases) {
+	$("#new-master-password").passwordValidation({"confirmField": "#confirm-master-password"}, function(element, valid, match, failedCases) {
 	  $(".pswd_info").html("<pre>" + failedCases.join("\n") + "</pre>");
 	   if(valid) $(element).css("border","2px solid green");
 	   if(!valid) $(element).css("border","2px solid red");
-	   if(valid && match) $("#confirm-password").css("border","2px solid green");
-	   if(!valid || !match) $("#confirm-password").css("border","2px solid red");
+	   if(valid && match) $("#confirm-master-password").css("border","2px solid green");
+	   if(!valid || !match) $("confirm-master-password").css("border","2px solid red");
 	});
 	
 	//Password Strength meter
-	$('#new-password').passtrength({
+	$('#new-master-password').passtrength({
 		minChars: 8,
 		passwordToggle : false
 	});
@@ -322,8 +322,10 @@ function populatePasswords() {
 			}
 		}).append(
 			//generates a link to editmodel with a unique id for each, containing their own pre-populated input fields for each password.
-			"<table><tr><th>Website:",url,"</th>", "</tr>",
-			"<tr><th>Username:",username,"</th></tr>" , "</table>",
+			"<p>&nbsp;</p>",
+			"<p style = 'float:left'>Website:</p>",url,
+			"<p>&nbsp;</p>",
+			"<p style = 'float:left'>Username:",username,"</p>",
 			"&nbsp;",'<a id = "editModel_'+i+'" href="#modal1" style = "float: right"><i class="fas fa-edit"></i>Edit</a>')).appendTo("#passwdStore");
 
 			//function to prepopulate the input fields for each EditModel

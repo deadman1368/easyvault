@@ -754,7 +754,7 @@ input[type=button]:hover {
 }
 
 #checkShow3{
-	display: block;
+	margin-left: -20px;
 }
 
 .masterlogin-password .two tr{
@@ -817,6 +817,8 @@ input[type=button]:hover {
 
 .clicktogen-settings{
 	position:relative;
+	left : 265px;
+	bottom: 25px;
 }
 
 .confirm-delete{
