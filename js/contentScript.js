@@ -49,7 +49,7 @@ localStorage.popUpValue = 0;
     function fnDefineEvents() {
         document
           .getElementById("username-id")
-          .addEventListener("focus", function (event) {
+          .addEventListener("click", function (event) {
             
             if (localStorage.popUpValue === '0'){
                 count = 0;
@@ -59,7 +59,7 @@ localStorage.popUpValue = 0;
 
           document
           .getElementById("pwd-id")
-          .addEventListener("focus", function (event) {
+          .addEventListener("click", function (event) {
             if (localStorage.popUpValue === '0'){
               count = 1;
               usernamePwdPopUp();
