@@ -52,13 +52,13 @@ function is_email(email){
 function registerUser() {
     $(document).ready(function() 
     {
-        const Url ='https://3.20.221.122/api/signup.php';
+        const Url ='http://3.20.221.122/api/signup.php';
         $('#sign-up').click(function()
         {
             var username = document.getElementById("sign-user").value;
             var pass = document.getElementById("sign-password").value;
 
-            if(is_email(username) && pass)
+            if(username && pass)
             {
                 $.ajax
                 ({
@@ -96,7 +96,7 @@ function registerUser() {
 function login() {
     $(document).ready(function() 
     {
-        const Url ='https://3.20.221.122/api/login.php';
+        const Url ='http://3.20.221.122/api/login.php';
         $('#login-btn').click(function()
         {
             var username = document.getElementById("login-user").value;
@@ -151,7 +151,7 @@ function pageLoad()
 
     if(existingToken)
     {
-    const Url ='https://3.20.221.122/api/login.php';
+    const Url ='http://3.20.221.122/api/login.php';
     $.ajax
     ({
         url: Url + '?token='+ existingToken,
