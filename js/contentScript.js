@@ -213,14 +213,31 @@ localStorage.popUpValue = 0;
       storeUsername.innerHTML = usernameTxt;
       storeUsername.style.fontSize = '10px';
       storeUsername.style.color = "black";
+		
+	/*
+	for(int i = 0; i < listOfURL.length; i++){
+		if(listOfURL[i].includes(window.location.hostname)){
+			usernameTxt = listOfUsername[i].value;
+			pwd = listofPassword[i].value
+			storeUsername.innerHTML = usernameTxt;
+			storeUsername.style.fontSize = '10px';
+			storeUsername.style.color = "black";
+		}
+	}
+	
+	storeUsernamePwd.addEventListener("click", function(){
+		document.getElementById('username-id').value = usernameTxt;
+		document.getElementById('pwd-id').value = pwd;
+	});
+	*/
       
       //Populate data into username div and password div
 		storeUsernamePwd.onclick = function (){
 		document.getElementById('username-id').value = usernameTxt;
 		document.getElementById('pwd-id').value = pwd;
         };
-     
-      
+			
+		
       
       //Close the pop up
 		cancel.innerHTML = 'close';
