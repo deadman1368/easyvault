@@ -612,45 +612,53 @@ function deleteUser()
 function editUsername() 
 {
 	var new_username = document.getElementById("inputemail").value;
-
-	chrome.runtime.sendMessage({type: 2}, function(response) 
-	{
-		var existingToken = response.verify;
-
-		if(existingToken && new_username)
-    	{
-   	 		const Url ='http://3.20.221.122/api/editemail.php';
-    		$.ajax
-    		({
-        		url: Url + "?newusername=" + new_username + "&token=" + existingToken,
-        		type: "GET",
-        		success: function(result)
-       			{
-            		if(result == 1)
-            		{
-						alert("email has been changed, please relogin with the new email");
-						chrome.runtime.sendMessage({type: 3}, function(response){});
-						window.location.href = "login.html";
-           			}
-           			else
-            		{
-						window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
-					}
-				
-        		},
-        		error:function(error) 
-       			{
-        			alert(`Error ${error}`)
-        		}
-    		});
-		}
-		else
-		{
-			alert("Session expired, redirecting to login page...");
-			window.location.href = "login.html";
-		}
-	});
+	var confirm_newusername = document.getElementById("confirm-inputemail").value;
 	
+	if(new_username == confirm_newusername)
+	{
+
+		chrome.runtime.sendMessage({type: 2}, function(response) 
+		{
+			var existingToken = response.verify;
+
+			if(existingToken && new_username)
+			{
+				const Url ='http://3.20.221.122/api/editemail.php';
+				$.ajax
+				({
+					url: Url + "?newusername=" + new_username + "&token=" + existingToken,
+					type: "GET",
+					success: function(result)
+					{
+						if(result == 1)
+						{
+							alert("email has been changed, please relogin with the new email");
+							chrome.runtime.sendMessage({type: 3}, function(response){});
+							window.location.href = "login.html";
+						}
+						else
+						{
+							window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+						}
+					
+					},
+					error:function(error) 
+					{
+						alert(`Error ${error}`)
+					}
+				});
+			}
+			else
+			{
+				alert("Session expired, redirecting to login page...");
+				window.location.href = "login.html";
+			}
+		});
+	}
+	else
+	{
+		alert("email fields don't match");
+	}
 }
 
 function editMasterPassword() 
