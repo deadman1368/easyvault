@@ -237,6 +237,10 @@ $(document).ready(function () {
 	
 });
 
+//email validation for registration
+function is_email(email){      
+    var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailReg.test(email); } 
 	
 
 //sets the values for input fileds on clicking edit
@@ -617,43 +621,50 @@ function editUsername()
 	if(new_username == confirm_newusername)
 	{
 
-		chrome.runtime.sendMessage({type: 2}, function(response) 
+		if(is_email(new_username))
 		{
-			var existingToken = response.verify;
+			chrome.runtime.sendMessage({type: 2}, function(response) 
+			{
+				var existingToken = response.verify;
 
-			if(existingToken && new_username)
-			{
-				const Url ='http://3.20.221.122/api/editemail.php';
-				$.ajax
-				({
-					url: Url + "?newusername=" + new_username + "&token=" + existingToken,
-					type: "GET",
-					success: function(result)
-					{
-						if(result == 1)
+				if(existingToken && new_username)
+				{
+					const Url ='http://3.20.221.122/api/editemail.php';
+					$.ajax
+					({
+						url: Url + "?newusername=" + new_username + "&token=" + existingToken,
+						type: "GET",
+						success: function(result)
 						{
-							alert("email has been changed, please relogin with the new email");
-							chrome.runtime.sendMessage({type: 3}, function(response){});
-							window.location.href = "login.html";
-						}
-						else
+							if(result == 1)
+							{
+								alert("email has been changed, please relogin with the new email");
+								chrome.runtime.sendMessage({type: 3}, function(response){});
+								window.location.href = "login.html";
+							}
+							else
+							{
+								window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+							}
+						
+						},
+						error:function(error) 
 						{
-							window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+							alert(`Error ${error}`)
 						}
-					
-					},
-					error:function(error) 
-					{
-						alert(`Error ${error}`)
-					}
-				});
-			}
-			else
-			{
-				alert("Session expired, redirecting to login page...");
-				window.location.href = "login.html";
-			}
-		});
+					});
+				}
+				else
+				{
+					alert("Session expired, redirecting to login page...");
+					window.location.href = "login.html";
+				}
+			});
+		}
+		else
+		{
+			alert("enter a valid email format");
+		}
 	}
 	else
 	{
