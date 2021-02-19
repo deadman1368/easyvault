@@ -357,7 +357,7 @@ function pageLoad() {
 	   
 	   if(existingToken)
 	   {
-	   const Url ='http://3.20.221.122/api/viewpassword.php';
+	   const Url ='https://3.20.221.122/api/viewpassword.php';
 	   $.ajax
 	   ({
 		   url: Url + '?token='+ existingToken,
@@ -436,7 +436,7 @@ function addPassword()
 
 		if(existingToken)
     	{
-   	 		const Url ='http://3.20.221.122/api/addpassword.php';
+   	 		const Url ='https://3.20.221.122/api/addpassword.php';
     		$.ajax
     		({
         		url: Url + '?token='+ existingToken + "&site_username=" + new_username + "&site_password=" + new_password + "&site_url="+ new_url + "&misc="+ new_misc,
@@ -488,7 +488,7 @@ function editPassword()
 		
 		if(existingToken)
     	{
-   	 		const Url ='http://3.20.221.122/api/editpassword.php';
+   	 		const Url ='https://3.20.221.122/api/editpassword.php';
     		$.ajax
     		({
         		url: Url + appendurl,
@@ -534,7 +534,7 @@ function deletePassword()
 
 			if(existingToken)
 			{
-				const Url ='http://3.20.221.122/api/deletepassword.php';
+				const Url ='https://3.20.221.122/api/deletepassword.php';
 				$.ajax
 				({
 					url: Url + '?id='+ delete_id + "&token=" + existingToken,
@@ -577,7 +577,7 @@ function deleteUser()
 
 		if(existingToken)
     	{
-   	 		const Url ='http://3.20.221.122/api/deleteuser.php';
+   	 		const Url ='https://3.20.221.122/api/deleteuser.php';
     		$.ajax
     		({
         		url: Url + "?token=" + existingToken,
@@ -629,7 +629,7 @@ function editUsername()
 
 				if(existingToken && new_username)
 				{
-					const Url ='http://3.20.221.122/api/editemail.php';
+					const Url ='https://3.20.221.122/api/editemail.php';
 					$.ajax
 					({
 						url: Url + "?newusername=" + new_username + "&token=" + existingToken,
@@ -688,7 +688,7 @@ function editMasterPassword()
 
 		if(existingToken && new_master_password)
     	{
-   	 		const Url ='http://3.20.221.122/api/editmasterpassword.php';
+   	 		const Url ='https://3.20.221.122/api/editmasterpassword.php';
     		$.ajax
     		({
         		url: Url + "?new_password=" + new_master_password + "&old_password=" + old_master_password + "&token=" + existingToken,
@@ -733,7 +733,7 @@ function logout()
 
 		if(existingToken)
     	{
-   	 		const Url ='http://3.20.221.122/api/logout.php';
+   	 		const Url ='https://3.20.221.122/api/logout.php';
     		$.ajax
     		({
         		url: Url + "?username=" + current_user,

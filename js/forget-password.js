@@ -3,7 +3,7 @@
 //retrieves values from user and pass fields, connects to backend and inserts new user.
 function resetpassword() 
 {
-        const Url ='http://3.20.221.122//api/resetpassword.php';
+        const Url ='https://3.20.221.122//api/resetpassword.php';
 
             var username = document.getElementById("forgetPwd").value;
 
