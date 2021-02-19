@@ -325,7 +325,7 @@ function populatePasswords() {
 			"<p style = 'float:left'>Website:</p>",url,
 			"<p>&nbsp;</p>",
 			"<p style = 'float:left'>Username:",username,"</p>",
-			"&nbsp;",'<a id = "editModel_'+i+'" href="#modal1" style = "float: right"><i class="fas fa-cog"></i>Edit</a>')).appendTo("#passwdStore");
+			"&nbsp;",'<a id = "editModel_'+i+'" href="#modal1" style = "float: right; color:black; "><i class="fas fa-cog"></i>Edit</a>')).appendTo("#passwdStore");
 
 			//function to prepopulate the input fields for each EditModel
 			document.getElementById("editModel_"+i).onclick = setValues;
