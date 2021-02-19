@@ -7,6 +7,7 @@
     font-family: "Roboto", sans-serif;
 }
 
+
 .topBar{
     background-color:#042331;
     height: 100px;
@@ -218,7 +219,7 @@ section{
     height: 350px;
     margin: 0 auto;
     margin-top: 15%;
-    
+ 
 }
 
 .editPasswordTop{
@@ -398,7 +399,7 @@ input[type=button]:hover {
 }
   
 .overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -919,7 +920,7 @@ input[type=button]:hover {
 	top: 0;
 	width: 100%; /* Full width */
 	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
+	overflow: scroll; /* Enable scroll if needed */
 	background-color: rgb(0,0,0); /* Fallback color */
 	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
@@ -930,6 +931,9 @@ input[type=button]:hover {
 	left: 30%;
 	width: 40%;
 	background: #CFCFCF;
+	min-width: 100%;
+ 	 min-height: 100%;
+
 }
 
 .password-confirm-changes-body{
@@ -952,8 +956,5 @@ input[type=button]:hover {
 	margin-bottom: 10px
 }
 
-#LoggedUser2{
-	
-}
 
 © 2021 GitHub, Inc.
