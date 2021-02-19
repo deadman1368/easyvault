@@ -1,4 +1,8 @@
 
+//email validation for registration
+function is_email(email){      
+    var emailReg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailReg.test(email); } 
 
 //retrieves values from user and pass fields, connects to backend and inserts new user.
 function resetpassword() 
@@ -7,7 +11,7 @@ function resetpassword()
 
             var username = document.getElementById("forgetPwd").value;
 
-            if(username)
+            if(is_email(username))
             {
                 $.ajax
                 ({
@@ -34,7 +38,16 @@ function resetpassword()
             {
                 alert("Enter the email address to reset");
             }
-     
 }
 
 document.getElementById('reset-btn').onclick = resetpassword;
+
+var emailfield = document.getElementById("forgetPwd");
+//map enter key to reset password button when email field is in focus
+emailfield.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) 
+    {
+      event.preventDefault();
+      document.getElementById("reset-btn").click();
+    }
+  });

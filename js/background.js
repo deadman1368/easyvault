@@ -1,9 +1,10 @@
-
+//global variables to store for use with other pages
 'use strict';
 var passwords;
 var token;
 var time;
 
+//create context menu on login
 chrome.runtime.onInstalled.addListener(function () {
   chrome.contextMenus.create({
     "id": "MainMenu2",
@@ -20,6 +21,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
 });
 
+//event handler for clicking options in context menu
 function onClickHandler(info, tab) 
 {
   if(info.parentMenuItemId == "MainMenu")
@@ -35,9 +37,10 @@ function onClickHandler(info, tab)
 
 };
 
-
+//call the handler
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 
+//function to create sub menus for above.
 function populateSubMenu(item, index) {
  
   chrome.contextMenus.create({
@@ -56,37 +59,43 @@ function populateSubMenu(item, index) {
 
 }
 
-
+//active listener for messages received from other js pages.
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       switch(request.type)
       {
+        //set the token variable after user logs in
         case 1:
           token = request.token;
-         // console.log(token);
         break;
        
+        //when dashboard checks for existing session token
         case 2:
           sendResponse({verify: token});
           break;
-
+        
+        //on logout
         case 3:
           token = "";
           passwords = null;
           break;
 
+        //on pageload of dashboard(user login), populate sub menu
         case 4:
           request.data.forEach(populateSubMenu);
           passwords = request.data;
           break;
 
+        //placeholder
         case 5:
           break;
 
+        //on recieving of last login time
         case 6:
           time = request.time;
           break;
 
+        //when dashboard requests for last login time, sned it over
         case 7:
           sendResponse({verify: time});
           break;

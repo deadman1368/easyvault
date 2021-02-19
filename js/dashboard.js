@@ -333,16 +333,15 @@ function populatePasswords() {
 
 			//function to prepopulate the input fields for each EditModel
 			document.getElementById("editModel_"+i).onclick = setValues;
-			//append the delete function to the button
-			//document.getElementById("delete-confirm").onclick = deletePassword;
-			//clears the global variables on cancel click
+
+			//clears the global variable on cancel click
 			document.getElementById("cancelForm").onclick = clear_id;
 
 	}
 
 }
 
-//on page load, retrieve all passowrd objects,split and store them as seperate object arrays,store them in global "passwords" array.
+//on page load, retrieve all passowrd objects,split and store them as seperate object arrays,store them in global "passwords" array, sets the last login time.
 function pageLoad() {
 
 	chrome.runtime.sendMessage({type: 2}, function(response) 
@@ -352,7 +351,14 @@ function pageLoad() {
 	   chrome.runtime.sendMessage({type: 7}, function(response) 
 	   {
 		   var time = response.verify;
-		   document.getElementById("LastLoginTime").innerHTML = "Your Last Login was: " + time;
+		   if(time)
+		   {
+			document.getElementById("LastLoginTime").innerHTML = "Your previous Login was: " + time;
+		   }
+		   else if(!time)
+		   {
+			document.getElementById("LastLoginTime").innerHTML = "Your previous Login was: " + "Never";
+		   }
 	   });
 	   
 	   if(existingToken)
@@ -417,7 +423,7 @@ function pageLoad() {
 	document.getElementById("confirm-change-master-password").onclick = editMasterPassword;
 	//set the logout button
 	document.getElementById("logout-Btn").onclick = logout;
-	
+	//set the delete button
 	document.getElementById("password-delete-confirm").onclick = deletePassword;
 
 }
@@ -672,11 +678,12 @@ function editUsername()
 	}
 }
 
+//function to change the master password of the user.
 function editMasterPassword() 
 {
 	var placeholder = document.getElementById("new-master-password").value;
-	var placceholder2 = document.getElementById("confirm-master-password").value;
-	if(placeholder == placceholder2)
+	var placeholder2 = document.getElementById("confirm-master-password").value;
+	if(placeholder == placeholder2)
 	{
 		var new_master_password = document.getElementById("new-master-password").value;
 		var old_master_password = document.getElementById("old-master-password").value;
@@ -686,33 +693,40 @@ function editMasterPassword()
 	{
 		var existingToken = response.verify;
 
-		if(existingToken && new_master_password)
+		if(existingToken)
     	{
-   	 		const Url ='https://3.20.221.122/api/editmasterpassword.php';
-    		$.ajax
-    		({
-        		url: Url + "?new_password=" + new_master_password + "&old_password=" + old_master_password + "&token=" + existingToken,
-        		type: "GET",
-        		success: function(result)
-       			{
-            		if(result == 1)
-            		{
-						alert("Master Password has been changed, please relogin with the new password");
-						chrome.runtime.sendMessage({type: 3}, function(response){});
-						window.location.href = "login.html";
-           			}
-           			else
-            		{
-						alert("something went wrong");
-						window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+			if(new_master_password)
+			{
+				const Url ='https://3.20.221.122/api/editmasterpassword.php';
+				$.ajax
+				({
+					url: Url + "?new_password=" + new_master_password + "&old_password=" + old_master_password + "&token=" + existingToken,
+					type: "GET",
+					success: function(result)
+					{
+						if(result == 1)
+						{
+							alert("Master Password has been changed, please relogin with the new password");
+							chrome.runtime.sendMessage({type: 3}, function(response){});
+							window.location.href = "login.html";
+						}
+						else
+						{
+							alert("something went wrong");
+							window.location.href = "dashboard.html" + "?username=" + current_user +"&tokenstring=" + result;
+						}
+					
+					},
+					error:function(error) 
+					{
+						alert(`Error ${error}`)
 					}
-				
-        		},
-        		error:function(error) 
-       			{
-        			alert(`Error ${error}`)
-        		}
-    		});
+				});
+			}
+			else
+			{
+				alert("New Password and Confirm Password don't match")
+			}
 		}
 		else
 		{
@@ -766,5 +780,43 @@ function logout()
 		}
 	});
 }
+
+var emailfield = document.getElementById("inputemail");
+var confirmemailfield = document.getElementById("confirm-inputemail");
+
+var passwordfield = document.getElementById("new-master-password");
+var confirmpasswordfield = document.getElementById("confirm-master-password");
+
+emailfield.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) 
+    {
+      event.preventDefault();
+      $("#change-email-window").show();
+    }
+  });
+
+confirmemailfield.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) 
+    {
+      event.preventDefault();
+      $("#change-email-window").show();
+    }
+  });
+
+passwordfield.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) 
+    {
+      event.preventDefault();
+      $("#change-masterpassword-window").show();
+    }
+  });
+
+confirmpasswordfield.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) 
+    {
+      event.preventDefault();
+      $("#change-masterpassword-window").show();
+    }
+  });
 
 window.onload=pageLoad();

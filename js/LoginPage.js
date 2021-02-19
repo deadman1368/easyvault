@@ -12,7 +12,6 @@
         show.className += " container-show"
     }
     
-    
     window.onload = containerShow;
     
     
@@ -133,10 +132,9 @@ function login() {
                     {
                         sessiontoken = result.split(";")[0];
                         last_login = result.split(";")[1];
-                       // chrome.runtime.sendMessage({type: 1 ,token: sessiontoken}, function(response){});
-                       // chrome.runtime.sendMessage({type: 6 ,time: last_login}, function(response){});
+
                        window.location.href = "user-otp.html" +"?username=" + username + "&token=" + sessiontoken + "&last_login="+ last_login;
-                      //  window.location.href = "dashboard.html" +"?username=" + username + "&token=" + sessiontoken;
+
                     }
                 },
                 error:function(error) 
@@ -168,34 +166,56 @@ function pageLoad()
 
     if(existingToken)
     {
-    const Url ='https://3.20.221.122/api/login.php';
-    $.ajax
-    ({
-        url: Url + '?token='+ existingToken,
-        type: "GET",
-        success: function(result)
-        {
-            if(result == 0)
+        const Url ='https://3.20.221.122/api/login.php';
+        $.ajax
+        ({
+            url: Url + '?token='+ existingToken,
+            type: "GET",
+            success: function(result)
             {
-                chrome.runtime.sendMessage({type: 3}, function(response){});
-                alert("Session expired");
-                window.location.href = "login.html";
-                return true;
-            }
-            else
+                if(result == 0)
+                {
+                    chrome.runtime.sendMessage({type: 3}, function(response){});
+                    alert("Session expired");
+                    window.location.href = "login.html";
+                    return true;
+                }
+                else
+                {
+                    window.location.href = "dashboard.html" + "?username=" + result +"&tokenstring=" + existingToken;
+                    return true;
+                }
+            },
+            error:function(error) 
             {
-                window.location.href = "dashboard.html" + "?username=" + result +"&tokenstring=" + existingToken;
-                return true;
+            console.log(`Error ${error}`)
             }
-        },
-        error:function(error) 
-        {
-        console.log(`Error ${error}`)
-        }
-    });
+        });
+
     }
 });
 
 }
 
+var usernamefield = document.getElementById("login-user");
+var passwordfield = document.getElementById("login-password");
+
+//set enter key to login when either username or password fields are "on focus"
+// 13 = enter key
+usernamefield.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) 
+    {
+      event.preventDefault();
+      document.getElementById("login-btn").click();
+    }
+  });
+
+  passwordfield.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("login-btn").click();
+    }
+  });
+
+//call on page load
 pageLoad();

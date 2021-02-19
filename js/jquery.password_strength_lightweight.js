@@ -1,10 +1,3 @@
-/* 
-This is a simple implementation of the password_strength.js plugin, that does not use jQuery Widget Factory.
-If you a going to extend plugin with addition functionality it will be better to use password_strength.js 
-because jQuery Widget Factory allows to build complex, stateful plugins based on object-oriented principles.
-Dependencies: 
-1. jQuery
-*/
 
 ;(function ( $, window, document, undefined ) {
     var upperCase = new RegExp('[A-Z]');
@@ -33,7 +26,7 @@ Dependencies:
         var 
             options = this.options;
 
-        //Note. Instead of this you can use templating. I did not want to have addition dependencies.
+        
         this.element.addClass(options.strengthWrapperClass);
         this.element.append('<input type="password" class="' + options.inputClass + '" id = "sign-password" placeholder ="Create Password" "/>');
         this.element.append('<input type="text" class="' + options.inputClass + '" id = "sign-password" style="display:none"/>');
@@ -147,8 +140,7 @@ Dependencies:
         }
     },
 
-    // A really lightweight plugin wrapper around the constructor, 
-    // preventing against multiple instantiations
+
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
             if (!$.data(this, 'plugin_' + pluginName)) {
