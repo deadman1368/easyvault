@@ -695,7 +695,7 @@ function editMasterPassword()
 
 		if(existingToken)
     	{
-			if(new_master_password)
+			if(new_master_password && old_master_password)
 			{
 				const Url ='https://3.20.221.122/api/editmasterpassword.php';
 				$.ajax
@@ -722,6 +722,10 @@ function editMasterPassword()
 						alert(`Error ${error}`)
 					}
 				});
+			}
+			else if(!old_master_password)
+			{
+				alert("enter in your old password");
 			}
 			else
 			{
